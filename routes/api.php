@@ -26,8 +26,4 @@ Route::post("/tokens/create", function (Request $request) {
     return ["token" => $token->plainTextToken];
 });
 
-// Route::get("recipes", [RecipeController::class, "index"]);
-// Route::post("recipe", [RecipeController::class, "store"]);
-// Route::get("recipe/{id}", [RecipeController::class, "show"]);
-
 Route::apiResource("recipes", RecipeController::class);
