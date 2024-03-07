@@ -20,6 +20,14 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
     return $request->user();
 });
 
-Route::get("recipes", [RecipeController::class, "index"]);
-Route::post("recipe", [RecipeController::class, "store"]);
-Route::get("recipe/{id}", [RecipeController::class, "show"]);
+Route::post("/tokens/create", function (Request $request) {
+    $token = $request->user()->createToken($request->token_name);
+
+    return ["token" => $token->plainTextToken];
+});
+
+// Route::get("recipes", [RecipeController::class, "index"]);
+// Route::post("recipe", [RecipeController::class, "store"]);
+// Route::get("recipe/{id}", [RecipeController::class, "show"]);
+
+Route::apiResource("recipes", RecipeController::class);
