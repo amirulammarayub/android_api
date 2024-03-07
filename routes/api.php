@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\RecipeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\FlareClient\Api;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,4 +20,6 @@ Route::middleware("auth:sanctum")->get("/user", function (Request $request) {
     return $request->user();
 });
 
-// Route::
+Route::get("recipes", [RecipeController::class, "index"]);
+Route::post("recipe", [RecipeController::class, "store"]);
+Route::get("recipe/{id}", [RecipeController::class, "show"]);
