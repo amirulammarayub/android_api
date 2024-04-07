@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RecipeCreated;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RecipeController extends Controller
 {
@@ -24,9 +26,12 @@ class RecipeController extends Controller
     public function store(Request $request)
     {
         //
-        $user = Recipe::create($request->all());
+        // $recipe = Recipe::create($request->all());
+        $recipe = Recipe::find(3);
+        // email to jawdropsmile@gmail.com
+        Mail::to("jawdropsmile@gmail.com")->send(new RecipeCreated($recipe));
 
-        return response()->json($user, 201);
+        return response()->json($recipe, 201);
     }
 
     /**
