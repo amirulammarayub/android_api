@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\RecipeController;
-use App\Http\Controllers\Api\UserAuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Spatie\FlareClient\Api;
@@ -26,12 +25,5 @@ Route::post("/tokens/create", function (Request $request) {
 
     return ["token" => $token->plainTextToken];
 });
-
-// Auth
-Route::post("register", [UserAuthController::class, "register"]);
-Route::post("login", [UserAuthController::class, "login"]);
-Route::post("logout", [UserAuthController::class, "logout"])->middleware(
-    "auth:sanctum"
-);
 
 Route::apiResource("recipes", RecipeController::class);
