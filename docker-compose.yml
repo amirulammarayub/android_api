@@ -1,0 +1,42 @@
+services:
+  app:
+    build:
+      args:
+        user: ammarayub
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: app_image
+    container_name: lara-test-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - lara_net 
+  db:
+    image: mysql:8.0
+    container_name: lara-test-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    volumes:
+      - ./docker-compose/mysql:/docker-entrypoint-initdb.d
+    networks:
+      - lara_net
+  nginx:
+    image: nginx:alpine
+    container_name: lara-test-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - lara_net
+networks:
+  lara_net:
+    driver: bridge
