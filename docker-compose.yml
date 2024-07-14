@@ -13,7 +13,7 @@ services:
     volumes:
       - ./:/var/www
     networks:
-      - lara_net 
+      - lara_net
   db:
     image: mysql:8.0
     container_name: lara-test-db
@@ -31,7 +31,7 @@ services:
     container_name: lara-test-nginx
     restart: unless-stopped
     ports:
-      - 8000:80
+      - 80:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/
